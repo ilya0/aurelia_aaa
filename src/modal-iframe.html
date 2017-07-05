@@ -1,0 +1,11 @@
+<template>
+    <ux-dialog ref="dialogContainer">
+        <ux-dialog-header>
+        </ux-dialog-header>
+        <ux-dialog-body ref="dialogBody">
+            <div style="padding:10px;background-color:white;">
+                <iframe style="width:95vw;height:90vh;max-width:950px;max-height:800px;" ref="iframe" src.bind="iframeUrl" load.trigger="locationChanged()"></iframe>
+            </div>
+        </ux-dialog-body>
+    </ux-dialog>
+</template>

@@ -1,0 +1,10 @@
+<template>
+    <ux-dialog>
+        <ux-dialog-header ref="dialogHeader">${headerText}</ux-dialog-header>
+        <ux-dialog-body ref="dialogBody" innerhtml.bind="bodyHtml"></ux-dialog-body>
+        <ux-dialog-footer show.bind="showFooter">
+            <button show.bind="showCancel" click.trigger="controller.cancel()">Cancel</button>
+            <button show.bind="showOk" click.trigger="closeOk()">Ok</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+</template>

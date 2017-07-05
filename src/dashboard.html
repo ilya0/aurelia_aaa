@@ -1,0 +1,53 @@
+<template>
+    <div ref="dashboardElem" class="fullscreen">
+        <header>
+            <div class="navbar-fixed" style="height:45px;">
+                <nav class="blue-grey darken-4" role="navigation" style="height:45px;">
+                    <div class="nav-wrapper">
+                        <div class="brand-logo left grey-text text-lighten-3" style="line-height:45px; margin-left:25px;">
+                            AAA Flag &amp; Banner &nbsp;&nbsp;- &nbsp;&nbsp;
+                            <span class="grey-text text-lighten-1" style="font-size:0.8em">${ dashboardName }</span>
+                            <!--<button ref="fullscreenBtn" class="btn" click.delegate="enterFullscreen()">Enter Fullscreen</button>-->
+                        </div>
+                        <ul style="position:fixed; right:225px; margin-top:-10px;">
+                            <li class="loader" if.bind="router.isNavigating">
+                                <i class="fa fa-spinner fa-spin fa-2x"></i>
+                            </li>
+                        </ul>
+                        <ul style="position:fixed; right:25px; margin-top:-10px;">
+                            <li>
+                                Last Updated: ${ lastUpdated }
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="au-animate">
+            <table class="striped">
+                <tr>
+                    <th style="width:120px;">Order #</th>
+                    <th style="width:125px;">Due Date</th>
+                    <th>Customer</th>
+                    <th>Item Name</th>
+                    <th style="width:100px;text-align:center;">Quantity</th>
+                    <!--<th style="width:180px;">Status</th>-->
+                    <th>Department</th>
+                    <th>Sales Team</th>
+                    <th style="width:200px;">Last Updated</th>
+                </tr>
+                <tr class="" repeat.for="item of records">
+                    <td style="padding-left:12px;">${ item.transaction }</td>
+                    <td>${ item.duedate }</td>
+                    <td>${ item.company }</td>
+                    <td>${ item.description }</td>
+                    <td style="text-align:center;">${ item.quantity }</td>
+                    <!--<td>${ item.status }</td>-->
+                    <td>${ item.department }</td>
+                    <td>${ item.salesteam }</td>
+                    <td>${ item.updated }</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+</template>

@@ -1,0 +1,21 @@
+<template>
+    <ux-dialog>
+        <ux-dialog-header>
+            <div style="font-size:24px;font-weight:bold;">Quantity In Box</div>
+        </ux-dialog-header>
+        <ux-dialog-body class="slim-rows5 center-align">
+            <form role="form" submit.delegate="updateQuantity()">
+                <div class="center-align" style="padding-bottom: 15px;">Quantity to ship: ${max}</div>
+                <div if.bind="current" class="center-align" style="padding-bottom: 15px;font-weight:bold;">
+                    <div>Already In Box: ${current}</div>
+                    <div>Enter updated quantity</div>
+                </div>
+                <input type="text" ref="inputElem" readonly class="number" value.bind="value" style="font-size:24px;font-weight:bold;"><br><br>
+                <button type="submit" class="btn-large waves-effect waves-light blue">Enter</button><br><br><br>
+                <button show.bind="isVersion" click.delegate="removeVersion()" class="btn waves-effect waves-light blue">Remove Version</button>
+                <br><br>
+                <button click.delegate="removeItem()" class="btn waves-effect waves-light blue">Remove Item</button>
+            </form>
+        </ux-dialog-body>
+    </ux-dialog>
+</template>

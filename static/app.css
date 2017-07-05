@@ -1,0 +1,713 @@
+html {
+    overflow: visible;
+}
+
+body {
+    background: white;
+}
+
+.signaturemodal{
+    top:0 !important;
+}
+
+md-input.invalid input{
+    color:red;
+}
+/*.container {
+    max-width: 950px;
+}*/
+
+
+/*@media only screen and (min-width: 993px){
+    .container {
+        width: 82%;
+    }
+}*/
+
+.fullscreen:fullscreen {
+    width: 100%;
+}
+
+p {
+    margin: 0;
+}
+
+p.aurelia-validation-message {
+    display: inline;
+    margin-left: 5px;
+}
+
+p.aurelia-validation-message:empty {
+    display: none;
+}
+
+.has-success label {
+    color: #3c763d;
+}
+
+.has-warning label {
+    color: #8a6d3b;
+}
+
+.nav-row {
+    margin-right: 0;
+}
+
+@media only screen and (min-width: 993px) {
+    .nav-row {
+        margin-right: 240px;
+    }
+}
+
+.indent-row-1 {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+}
+
+.indent-row-2 {
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
+.category-card {
+    font-size: 12px;
+    height: 120px;
+    width: 120px;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.category-card .material-icons {
+    font-size: 80px;
+    margin-top: 8px;
+    margin-left: 18px;
+    float: left;
+}
+
+@media only screen and (min-width: 450px) {
+    .category-card {
+        font-size: 13px;
+        height: 145px;
+        width: 145px;
+    }
+    .category-card .material-icons {
+        font-size: 92px;
+        margin-top: 8px;
+        margin-left: 25px;
+    }
+
+}
+
+@media only screen and (min-width: 601px) {
+    .category-card {
+        font-size: 14px;
+        height: 160px;
+        width: 160px;
+    }
+    .category-card .material-icons {
+        font-size: 96px;
+        margin-top: 10px;
+        margin-left: 30px;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .category-card {
+        font-size: 16px;
+        height: 175px;
+        width: 175px;
+    }
+    .category-card .material-icons {
+        font-size: 100px;
+        margin-top: 15px;
+        margin-left: 35px;
+    }
+}
+
+.aaa-logo {
+    display: inline-block;
+    height: 100px;
+    width: 130px;
+    background-image: url(https://s3-us-west-1.amazonaws.com/aaaflag-cdn-files/AAALogo2016.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.arrow-left {
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #9e9e9e;
+    float: left;
+}
+
+.arrow-down {
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #9e9e9e;
+    margin-top: 4px;
+    margin-left: -4px;
+    float: left;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+td {
+    vertical-align: top;
+}
+
+table.bordered td {
+    border-right: 1px solid #d0d0d0;
+}
+
+table.bordered tbody tr {
+    border-left: 1px solid #d0d0d0;
+}
+
+table.fixed {
+    table-layout: fixed;
+}
+
+table.calendar td {
+    width: 14.28%;
+    padding: 0;
+}
+
+.calendarText {
+    line-height: 1;
+    font-size: 12px;
+}
+
+.calendarDayTitle {
+    padding-left: 5px;
+}
+
+.calendarDayBody {
+    padding: 5px 5px;
+}
+
+.noOverflowEllip {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 11px;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+nav .nav-title {
+    color: white;
+    font-size: 16px;
+    height: 56px;
+    padding-left: 3.7rem;
+    padding-top: 1.4em;
+    line-height: 1em;
+}
+
+nav .nav-user {
+    line-height: 1.2rem;
+    padding-top: 12px !important;
+    font-size: 12px;
+}
+
+nav .nav-button {
+    margin: 16px 22px 0 !important;
+}
+
+@media only screen and (min-width: 475px) {
+    nav .nav-title {
+        font-size: 17px;
+        padding-left: 4rem;
+    }
+    nav .nav-user {
+        line-height: 1.3rem;
+        padding-top: 12px !important;
+        font-size: 12px;
+    }
+
+}
+
+@media only screen and (min-width: 601px) {
+    nav .nav-title {
+        height: 64px;
+        font-size: 18.8px;
+    }
+    nav .nav-button {
+        margin: 18px 22px 0 !important;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    nav .nav-title {
+        font-size: 29px;
+        padding-top: 20px;
+        padding-left: 1.1rem;
+    }
+    nav .nav-user {
+        line-height: 1.3rem;
+        padding-top: 14px !important;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    nav .nav-title {
+        font-size: 30px;
+    }
+}
+
+ux-dialog-container>div {
+    padding: 5px !important;
+}
+
+ux-dialog-overlay.active {
+    background-color: black;
+    opacity: .75 !important;
+}
+
+md-collection-item.collection-item:not(.active):hover {
+    background-color: #fff !important;
+}
+
+.md-input-center input{
+    text-align: center;
+}
+
+.slim .collection .collection-item {
+    padding: 4px 8px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.not-selected {
+    opacity: 0.4;
+}
+
+.selected-input {
+    border: solid 2px red !important;
+}
+
+.btn-large {
+    font-size: 18px;
+}
+
+.dropzone {
+    min-height: 110px;
+    min-width: 110px;
+    padding: 0;
+}
+
+.dropzone .dz-message {
+    margin: 1em 0;
+}
+
+.dropzone-hover {
+    border: solid 2px red;
+}
+
+.selected-collection {
+    background-color: #B00000 !important;
+}
+
+.row.slim-row5,
+.slim-rows5 .row {
+    margin-bottom: 5px !important;
+}
+
+.row.slim-row,
+.slim-rows .row {
+    margin-bottom: 0 !important;
+}
+
+.slim-textarea {
+    min-height: 1.5rem !important;
+}
+
+.item-config h5 {
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+.indent-option {
+    padding: 4px 4px 0;
+    font-weight: bold;
+}
+
+
+/*[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: relative !important;
+    left: auto !important;
+    visibility: visible !important;
+}*/
+
+.label-color {
+    color: #757575;
+}
+
+label {
+    color: #757575;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+label.inline {
+    line-height: 4rem;
+    padding-right: 6px;
+    /*color: #757575 !important;*/
+}
+
+.slider-outside-range {
+    color: red;
+    font-size: 1.2em;
+}
+
+.checkbox-small[type="checkbox"].filled-in:checked+label:after {
+    width: 12px;
+    height: 12px;
+}
+
+.checkbox-small[type="checkbox"].filled-in:not(:checked)+label:after {
+    height: 12px;
+    width: 12px;
+}
+
+.checkbox-small[type="checkbox"].filled-in:checked+label:before {
+    width: 5px;
+    height: 8px;
+}
+
+.checkbox-small[type="checkbox"]+label {
+    padding-left: 20px;
+    height: 20px;
+    line-height: 15px;
+    font-size: .85rem;
+}
+
+md-input.md-no-margin div.input-field {
+    margin-top: 0;
+}
+
+input.number {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 5.5rem;
+}
+
+input.number[type=number] {
+    padding-left: 1rem !important;
+}
+
+.input-field label.in-place {
+    font-weight: bold;
+    color: #757575 !important;
+    font-size: 1rem;
+    transform: none;
+    padding-left: 0;
+}
+
+.input-field label.active.in-place {
+    font-size: 1rem;
+    transform: none;
+}
+
+.input-field label.active {
+    font-size: 0.9rem;
+    color: #757575 !important;
+    font-weight: bold;
+}
+
+.input-field label {
+    /*font-size: 0.9rem;*/
+    /*color: #cccccc !important;*/
+    font-weight: normal;
+    padding-left: 8px;
+}
+
+.fieldLabel {
+    color: #002B49;
+    font-weight: 500;
+}
+
+.input-textarea label {
+    top: 0.5rem;
+}
+
+.input-textarea {
+    margin: 1rem 1.5rem 0;
+}
+
+.input-field.item-name {
+    margin-top: 2.4rem;
+}
+
+.item-name input {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 10px;
+    height: 3.2rem;
+}
+
+.input-field.item-name label {
+    font-size: 1.25em;
+}
+
+.input-field.item-name.active label {
+    font-size: 1.1em;
+}
+
+input:not([type]),
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search] {
+    padding: 0.2rem 0.5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: bold;
+}
+
+textarea.materialize-textarea-custom:focus:not([readonly]) {
+    border-bottom: 1px solid #26a69a;
+    box-shadow: 0 1px 0 0 #26a69a;
+}
+
+textarea.materialize-textarea-custom+label:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 60px;
+    opacity: 0;
+    transition: .2s opacity ease-out, .2s color ease-out;
+}
+
+textarea.materialize-textarea-custom {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    border-radius: 0;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+    box-shadow: none;
+    transition: all 0.3s;
+    overflow-y: hidden;
+    /* prevents scroll bar flash */
+    /* prevents text jump on Enter keypress */
+    resize: none;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 0.6rem 0.8rem;
+    min-height: 2.7rem !important;
+    height: 2.7rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select.fraction {
+    font-size: 0.9rem;
+    padding: 0 1.6rem 0 0.5rem;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /*appearance: none;*/
+    /* Add some styling */
+    display: block;
+    width: 100%;
+    /*max-width: 320px;*/
+    /*height: 50px;*/
+    /*float: right;*/
+    /*margin: 5px 0px;*/
+    /*padding: 0px 24px;*/
+    font-size: 14px;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+    padding: 0 1.8rem 0 0.7rem;
+    height: 2.5rem;
+    font-weight: bold;
+}
+
+.selectdiv {
+    position: relative;
+}
+
+.selectdiv:after {
+    content: '<>';
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 4px;
+    /*Adjust for position however you want*/
+    top: 7px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    /*left line */
+    position: absolute;
+    pointer-events: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.select-wrapper input.select-dropdown {
+    background-color: none;
+    padding: 0 15px;
+    font-weight: bold;
+}
+
+
+/*textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+  padding: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  transition: all .3s;
+}
+textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #26a69a;
+  box-shadow: 0 1px 0 0 #26a69a;
+}*/
+
+
+/*select {
+	display:block;
+}*/
+
+header.sidenav-left,
+main.sidenav-left,
+footer.sidenav-left {
+    padding-left: 0px;
+}
+
+@media only screen and (min-width: 993px) {
+    header,
+    main,
+    footer {
+        padding-left: 240px !important;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.no-margin-bot {
+    margin-bottom: 0;
+}
+
+menu-item a {
+    height: 45px !important;
+    line-height: 45px !important;
+}
+
+.side-nav a {
+    padding: 0 14px 0 54px !important;
+}
+
+.side-nav.fixed li.active {
+    background-color: #2979ff !important;
+    color: #fff !important;
+    cursor: default !important;
+}
+
+.side-nav.fixed li.parent {
+    background-color: #ddd !important;
+}
+
+.side-nav li a,
+.side-nav.fixed li a,
+.side-nav.fixed li a {
+    color: #444 !important;
+    cursor: pointer !important;
+    white-space: nowrap;
+    margin: 0 !important;
+}
+
+.side-nav {
+    height: 100%;
+    padding-bottom: 30px;
+    width: 240px;
+}
+
+.side-nav a {
+    display: inline-block !important;
+}
+
+
+/*.side-nav li.active > a, .side-nav.fixed li.active > a {
+  color: #fff !important;
+  cursor:default !important;
+}*/
+
+
+/*ul.side-nav.fixed li.active {
+  background-color:#ee6e73;
+}*/
+
+.collapsible-body {
+    /*Overrides native sidenav functionality (using Aurelia instead)*/
+    display: block;
+}
+
+.hide-offscreen {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}

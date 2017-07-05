@@ -1,0 +1,45 @@
+<template>
+    <ux-dialog>
+        <ux-dialog-header>
+            <div style="font-size:24px;font-weight:bold;">Graphic Version Qty</div>
+        </ux-dialog-header>
+        <ux-dialog-body class="slim-rows5">
+            <template repeat.for="ver of versions">
+                <div click.delegate="selectGraphicVersion(ver)" class.bind="((ver.isInPkg) ? '' : 'not-selected ') + 'pointer'" style="padding:5px 0px 0px;background-color:#bacbd6;margin-bottom:5px; ">
+                    <div class="row">
+                        <div class="col s7" style="padding:0;">
+                            <div class="row slim-row">
+                                <div class="col s6">Ordered</div>
+                                <div class="col s6">
+                                    <div class="center-align" style="max-width:80px;">${ver.quantity}</div>
+                                </div>
+                            </div>
+                            <div class="row slim-row">
+                                <div class="col s6">In Box</div>
+                                <div class="col s6">
+                                    <div ref="ver.element" class.bind="(ver.id==selectedVersion.id) ? 'selected-input center-align' : 'center-align'" style="font-weight:bold;font-size:1.2em;max-width:80px;border:solid 2px #aaaaaa;color:#686868;">
+                                        ${ver.packed || 0}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row slim-row">
+                                <div class="col s12">Filename</div>
+                            </div>
+                            <div class="row slim-row">
+                                <div class="col s12"><b>${ver.filename}</b></div>
+                            </div>
+                        </div>
+                        <div class="col s5 center-align">
+                            <img if.bind="ver.labelImage" src="${appState.labelImagesRootUrl + ver.labelImage}" style="max-width:95px;max-height:95px;">
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button click.delegate="setVersionQty()" class="btn-large waves-effect waves-light blue">Done</button>
+                </div>
+            </div>
+        </ux-dialog-body>
+    </ux-dialog>
+</template>

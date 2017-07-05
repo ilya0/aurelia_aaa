@@ -1,0 +1,69 @@
+<template>
+    <require from="menu-item"></require>
+
+    <header class="sidenav-left">
+        <div id="navMain" class="navbar-fixed">
+            <nav role="navigation" style="background-color:#002B49 !important;">
+                <div class="nav-wrapper">
+                    <div class="row nav-row">
+                        <div class="col s8">
+                            <div class="nav-title text-lighten-3 valign-wrapper">
+                                <span class="valign" click.delegate="window.scrollTo(0, 0)">AAA Flag &amp; Banner</span>
+                                <!--&nbsp;&nbsp;-&nbsp;&nbsp;<span class="grey-text text-lighten-1" style="font-size:0.8em">Item Entry</span>-->
+                            </div>
+                        </div>
+                        <div class="nav-user col s4 right-align blue-grey-text text-lighten-4">
+                            <div>${user.name}</div>
+                            <div><a click.delegate="signOut()" style="cursor:pointer;">Sign Out</a></div>
+                        </div>
+                    </div>
+                </div>
+                <a md-sidenav-collapse="ref.bind: sideNav;" md-sidenav-collapse.ref="sidenavController" data-activates="slideOut" class="nav-button button-collapse"
+                    style="position:absolute;color:white;cursor:pointer;top:0;left:0;height:24px;line-height:1em;">
+					<i class="material-icons" style="height: inherit; font-size: 2em; line-height: 1em;">menu</i>
+				</a>
+            </nav>
+        </div>
+
+        <md-sidenav view-model.ref="sideNav" md-fixed="true" md-edge="left" md-close-on-click="true">
+            <ul style="height:calc(100% - 2em);display:flex;flex-direction:column;">
+                <li class="center-align" style="height:122px;">
+                    <div class="aaa-logo" click.delegate="navigateTo('home')" style="margin:7px auto 2px;cursor:pointer;"></div>
+                </li>
+                <template repeat.for="[id, category] of appState.categories">
+                    <menu-item category.bind="category" currentcatid.bind="appState.currentCategoryId"></menu-item>
+                </template>
+                <li style="font-size:10pt;text-align:center;flex-grow:1;position:relative;">
+                    <div style="position:absolute;bottom:0;width:100%;text-align:center;line-height:1em;margin-bottom:-2.4em;">AAA Production App - v${appState.version}</div>
+                </li>
+            </ul>
+        </md-sidenav>
+    </header>
+
+    <main class="sidenav-left">
+        <div class="section no-pad" style="background-color:#004473 !important;">
+            <div class="container">
+                <div class="row no-margin">
+                    <div class="col s12 grey-text text-lighten-2" style="min-height:15px;"></div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col s12 valign-wrapper" style="min-height:40px;background-color:#9CACB8 !important;">
+                        <h5 class="grey-text text-lighten-3">${appState.pageHeader}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section no-pad">
+            <div class="container">
+                <div class="row no-margin">
+                    <div class="col s12 blue-grey lighten-5 card-panel no-margin-top" style="margin-bottom:80px;">
+                        <div class="section">
+                            <router-view></router-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="sidenav-left"></footer>
+</template>

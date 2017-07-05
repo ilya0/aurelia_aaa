@@ -1,0 +1,25 @@
+<template>
+  <!--bindable="category, currentcatid, navMenuClick"-->
+  <li click.delegate="navMenuClick(category.module)" if.bind="!category.children || category.children.size == 0" style="padding:0;position:relative;cursor:pointer;"
+    class="${category.level==1?'bold':''} ${category.state==2?'parent':''} ${category.state==3?'active':''}">
+    <span style="position:absolute;padding:10px 10px 0 14px;line-height:normal;" innerhtml.one-time="category.icon"></span>
+    <a>${category.name}</a>
+    <!--<a route-href="route.bind: category.module">${category.name}</a>-->
+    <!--<span style="position:absolute;top:18px;left:50px;line-height:normal;">${category.name}</span>-->
+  </li>
+  <!--<li if.bind=" category.children && category.children.size " class="no-padding ">
+    <ul class="collapsible collapsible-accordion ">
+      <li class="${category.level==1? 'bold': ''} ${category.state==2? 'parent': ''} ${category.state==3? 'active': ''} ">
+        <a class="collapsible-header " route-href="route: category; params.bind: { id: category.id, name: category.name
+      } ">${category.name}</a>
+        <div class="collapsible-body " show.bind="category.state> 1">
+          <ul style="margin-left:15px;">
+            <template repeat.for="[id, subcategory] of category.children">
+              <menu-item category.bind="subcategory" currentcatid.bind="currentcatid"></menu-item>
+            </template>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>-->
+</template>

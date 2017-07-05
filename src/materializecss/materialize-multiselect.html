@@ -1,0 +1,8 @@
+<template>
+    <div class="input-field">
+        <select ref="selectList" multiple class="materialize">
+            <option value="" disabled>${optionText}</option>
+            <option repeat.for="option of selectOptions" id.bind="'sel' + option.id" value.bind="option.id">${option.name}</option>
+        </select>
+    </div>
+</template>

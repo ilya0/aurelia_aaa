@@ -1,0 +1,62 @@
+<template>
+    <section class="au-animate">
+        <div class="row">
+            <div class="col s12 center-align">
+                <table class="highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <!--<th data-field="label">Assign</th>-->
+                            <th data-field="label">Quote #</th>
+                            <th data-field="trandate">Date</th>
+                            <th data-field="customer">Customer</th>
+                            <th data-field="duedate">Due Date</th>
+                            <th data-field="salesteam">Sales Team</th>
+                            <th data-field="requested">Requested</th>
+                            <th data-field="estimatedby">Estimated By</th>
+                            <th data-field="rush">Rush</th>
+                        </tr>
+                    </thead>
+                    <tr repeat.for="estimate of estimates">
+                        <!--<td>
+                            <a click.delegate="viewDelivery(delivery)">${estimate.name}</a>
+                        </td>-->
+                        <!--<td>
+                        </td>-->
+                        <td>
+                            <a href="https://system.na1.netsuite.com/app/accounting/transactions/estimate.nl?id=${estimate.id}" target="_blank">${estimate.tranid}</a>
+                        </td>
+                        <td>${estimate.trandate}</td>
+                        <td>${estimate.customer}</td>
+                        <td>${estimate.duedate}</td>
+                        <td>${estimate.salesteam}</td>
+                        <td>${estimate.datetime_requested}</td>
+                        <td>
+                            ${estimate.estimated_by.name}
+                            <button hide.bind="estimate.estimated_by.name" class="waves-effect waves-light btn" click.delegate="setEstimator($event, estimate)"
+                                style="cursor:pointer; height: 24px; line-height:24px; padding:0 5px;">Take</button>
+                            <a show.bind="estimate.estimated_by.name && estimate.estimated_by.name != '...'" click.delegate="setEstimator($event, estimate, 'clear')"
+                                style="cursor:pointer;">Clear</button>
+                        </td>
+                        <td>${estimate.rush ? 'Yes' : ''}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12" style="text-align:center;">
+                <md-progress show.bind="loading" md-pixel-size="25" md-type="circular"></md-progress>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                Last Update: ${lastUpdated}
+                <a click.delegate="getEstimates()" ref="refresh" style="cursor:pointer;padding-left:20px;">Refresh</a>
+            </div>
+        </div>
+    </section>
+</template>

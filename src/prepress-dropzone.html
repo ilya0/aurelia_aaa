@@ -1,0 +1,31 @@
+<template>
+    <div style="padding:5px 10px 2px;background-color: #bacbd6;margin-bottom:5px;">
+        <div class="row">
+            <div class="col s7">
+                <div class="row">
+                    <div class="col s7 fieldLabel">Quantity</div>
+                    <div class="col s5">
+                        <b>${version.quantity.v}</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 fieldLabel">Filename</div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <b>${version.filename.v}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col s5">
+                <div ref="dropzoneElement" class="dropzone" style.bind="(selectedVersion.id == version.id) ? 'border-color:red;float:right;' : 'float:right;'"
+                    click.delegate="selectDropzone()">
+                    <div class="dz-message">
+                        Drop File Here
+                        <!--or <br>Select to Paste Image-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

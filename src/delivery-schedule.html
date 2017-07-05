@@ -1,0 +1,125 @@
+<template>
+    <section class="au-animate">
+        <!--<div class="row">
+            <div class="col s12">
+                <span class="input-field">
+                    <input ref="textInputElem" type="text" value.bind="textInput">
+                </span>
+                <div ref="testInput"></div>
+            </div>
+        </div>-->
+
+        <div class="row no-margin">
+            <div class="col s2 left-align">
+                <a id="previousMonth" class="btn btn-info btn-sm" click.trigger="selectWeek(-1)">
+                    <span class="glyphicon glyphicon-chevron-left">&lt;</span>
+                </a>
+            </div>
+            <div class="col s8 center-align">
+                <h5 class="calendar-title">${selectedDay.dayName} ${selectedDay.fullMonthName} ${selectedDay.dayOfMonth} ${selectedDay.year}</h5>
+                <!--<h5 class="calendar-title">${monthName} ${year}</h5>-->
+            </div>
+            <div class="col s2 right-align">
+                <a id="nextMonth" class="btn btn-info btn-sm" click.trigger="selectWeek(1)">
+                    <span class="glyphicon glyphicon-chevron-right">&gt;</span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <table class="table bordered fixed calendar">
+                    <thead class="text-primary">
+                        <tr>
+                            <th class="info" repeat.for="dayName of dayNames">${dayName}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr repeat.for="row of calendarDaysDt">
+                            <td repeat.for="day of row" click.trigger="selectDay(day)">
+                                <div class="calendarDayTitle ${ day.isSelected ? 'blue lighten-2' : '' } ${ day.isActive ? '' : 'warning' }">${day.dayOfMonth}</div>
+                                <div class="calendarDayBody" repeat.for="event of day.events">
+                                    <div class="calendarText" style.bind="($index)?'padding-top:5px':''">
+                                        <span>
+                                            <a class="pointer" click.delegate="printPdf(event.id)">${event.tranid}</a>
+                                        </span>
+                                        <span show.bind="event.timeNeeded"> - ${event.timeNeeded}</span>
+                                    </div>
+                                    <div class="noOverflowEllip">${event.customer}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 center-align">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="label">ID</th>
+                            <th data-field="type">Type</th>
+                            <th data-field="customer">Customer</th>
+                            <th data-field="needed">Needed</th>
+                            <th data-field="status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody repeat.for="delivery of deliveryList">
+                        <tr click.delegate="toggleDeliveryDetail(delivery)" class="blue darken-4 white-text" style="cursor:pointer;">
+                            <td>${delivery.tranid}</td>
+                            <td>${delivery.deliveryType}</td>
+                            <td>${delivery.customer}</td>
+                            <td>${delivery.dateNeeded} ${delivery.timeNeeded}</td>
+                            <td>${delivery.status}</td>
+                        </tr>
+                        <tr if.bind="delivery['showDetails']">
+                            <td colspan="5">
+                                <table>
+                                    <tr>
+                                        <td>Contact</td>
+                                        <td>Location</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ${delivery.detail.location.contact}
+                                            <br />${delivery.detail.location.phone}
+                                        </td>
+                                        <td>
+                                            ${delivery.detail.location.name}
+                                            <br />${delivery.detail.location.addr1}
+                                            <br />${delivery.detail.location.city}, ${delivery.detail.location.state} ${delivery.detail.location.zip}
+                                        </td>
+                                    </tr>
+                                </table>
+                                Sales Team: ${delivery.detail.salesteam}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Order #</td>
+                                            <td>Qty</td>
+                                            <td>Description</td>
+                                            <td>Item</td>
+                                            <td>Size</td>
+                                            <td>Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody repeat.for="itemGroup of delivery.detail.itemGroups">
+                                        <tr repeat.for="item of itemGroup.items">
+                                            <td>${item.custfield_tranid}</td>
+                                            <td>${item.custfield_quantity}</td>
+                                            <td>${item.custfield_description}</td>
+                                            <td>${item.custfield_item}</td>
+                                            <td>${item.custfield_dimensions}</td>
+                                            <td>${item.custfield_status}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</template>

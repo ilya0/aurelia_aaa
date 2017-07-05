@@ -1,0 +1,47 @@
+<template>
+	<section class="au-animate">
+		<div class="row">
+			<div class="col s12" style="position:relative;">
+				<span class="input-field">
+					<input ref="textInputElem" type="text" value.bind="textInput">
+	            </span>
+				<md-progress style="position:absolute;right:18px;top:4px;" show.bind="loadingTextInput" md-pixel-size="25" md-type="circular"></md-progress>
+			</div>
+		</div>
+		<div class="row slim-row">
+			<div class="col s12 center-align" if.bind="loading">
+				<md-progress md-type="circular"></md-progress>
+			</div>
+			<div class="col s12 center-align" hide.bind="loading">
+				<a click.delegate="loadFulfillments()" class="pointer">Refresh</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 center-align" show.bind="openFulfillments">
+				<table class="striped responsive-table">
+					<thead>
+						<tr>
+							<!--<th data-field="duedate">Due Date</th>-->
+							<th data-field="tranid">Fulfillment</th>
+							<th data-field="salesorder">Sales Order</th>
+							<th data-field="customer">Customer</th>
+							<th data-field="shipmethod">Ship Method</th>
+							<!--<th data-field="label">Label</th>-->
+						</tr>
+					</thead>
+					<tr repeat.for="fulfillment of openFulfillments">
+						<!--<td>${fulfillment.duedate}</td>-->
+						<td>
+							<a href="https://system.na1.netsuite.com/app/accounting/transactions/itemship.nl?id=${fulfillment.id}" target="_blank">VIEW</a>							|
+							<a href="https://system.na1.netsuite.com/app/accounting/transactions/itemship.nl?id=${fulfillment.id}&e=T" target="_blank">EDIT</a>
+						</td>
+						<td><a href="https://system.na1.netsuite.com/app/accounting/transactions/salesord.nl?id=${fulfillment.salesorderid}" target="_blank">${fulfillment.salesorder}</a></td>
+						<td>${fulfillment.customer}</td>
+						<td>${fulfillment.shipmethod}</td>
+						<!--<td><a class="pointer" click.delegate="printLabel(fulfillment.id)">Print Label</a></td>-->
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+</template>

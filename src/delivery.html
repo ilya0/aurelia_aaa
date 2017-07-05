@@ -1,0 +1,35 @@
+<template>
+    <!--Delivery main page-->
+    <section class="au-animate">
+        <div class="row">
+            <div class="col s12" style="position:relative;">
+                <span class="input-field">
+                        <input ref="inputFieldRef" type="text" value.bind="inputField">
+                </span>
+                <md-progress style="position:absolute;right:18px;top:4px;" show.bind="loading" md-pixel-size="25" md-type="circular"></md-progress>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col s12 center-align">
+
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th style="width:100px;" data-field="id">ID</th>
+                            <th data-field="customer">Customer</th>
+                            <!--<th data-field="contact">Date Needed</th>-->
+                        </tr>
+                    </thead>
+                    <tr repeat.for="delivery of deliveries" class="pointer" click.delegate="router.navigateToRoute('delivery-detail', { id: delivery.id })">
+                        <td style="width:100px;">${delivery.tranid}</td>
+                        <td>${delivery.customer}</td>
+                        <!--<td>${delivery.dateNeeded}</td>-->
+                    </tr>
+                </table>
+                <h4>${statusMessage}</h4>
+            </div>
+        </div>
+    </section>
+</template>

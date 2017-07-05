@@ -1,0 +1,190 @@
+<template>
+    <require from="./prepress-dropzone"></require>
+    <section class="au-animate slim-rows5">
+        <div class="row">
+            <div class="col s12" style="position:relative;">
+                <span class="input-field">
+                    <input ref="inputFieldRef" type="text" value.bind="inputField">
+                    <!--<i class="fa fa-spinner fa-spin" tshow.bind="processing" style="font-size:24px"></i>-->
+                </span>
+                <md-progress style="position:absolute;right:18px;top:4px;" show.bind="loading" md-pixel-size="25" md-type="circular"></md-progress>
+            </div>
+        </div>
+        <!--<div hide.bind="transaction" class="row">
+			<div class="col s12">
+				<md-progress style="margin-left:auto;margin-right:auto;" md-type="circular" md-pixel-size="" md-size="big" md-color=""></md-progress>
+			</div>
+		</div>-->
+        <div show.bind="transaction">
+            <div class="row">
+                <div class="col s2 offset-s1 fieldLabel">Transaction</div>
+                <div class="col s7">
+                    <b>${transaction.record.tranid}</b>
+                    <span style="padding-left:15px;font-size:0.8em;">${transaction.record.revision}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s2 offset-s1 fieldLabel">Customer</div>
+                <div class="col s7">${transaction.record.customer}</div>
+            </div>
+
+            <div class="row">
+                <div class="col s2 offset-s1 fieldLabel">Project Title</div>
+                <div class="col s7">${transaction.record.title.v}</div>
+            </div>
+
+            <div class="row">
+                <div class="col s2 offset-s1 fieldLabel">Due Date</div>
+                <div class="col s3">${transaction.record.dueDate.v}</div>
+            </div>
+
+            <div class="row">
+                <div class="col s2 offset-s1 fieldLabel">Sales Team</div>
+                <div class="col s6">${transaction.record.salesTeam.v}</div>
+            </div>
+
+            <div class="row" style="margin-bottom:12px;">
+                <div class="col s2 offset-s1 fieldLabel" style="line-height:2.5em;">Department</div>
+                <div class="col s5">
+                    <select class="browser-default" value.two-way="selectedDepartment">
+                        <option value="">Select</option>
+                        <option repeat.for="dept of transaction.departments" model.bind="dept">${dept.name}</option>
+                    </select>
+                </div>
+                <!-- overall status section button-->
+                <!--<div class="dropdown-item">
+                    <div class="actions">
+                        <a md-button md-dropdown="ref.bind: maindrop; below-origin: true;" class="btn accent dropdown-button btnname"> Change All Statuses ${item.status.name}</a>
+                    </div>
+
+                    <ul ref="maindrop">
+                        <li repeat.for="status of statuses">
+                            <a click.trigger="updateallstatus(status) ">${status.name}</a>
+                        </li>
+                    </ul>
+                </div>-->
+                <!--end overall button-->
+            </div>
+
+            <template repeat.for="item of selectedDepartment.items">
+
+                <div class="card-panel" style="padding:8px 12px 2px;background-color: #d5dfe5;">
+                    <div class="row">
+                        <div class="col s2 fieldLabel">Description</div>
+                        <div class="col s8"><b>${item.name.v}</b></div>
+                        <div class="col s2 align-right"><b>Line ${item.lineId.v}</b></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s2 fieldLabel">Item</div>
+                        <div class="col s4">${item.item.v}</div>
+                        <div class="col s1 fieldLabel">Size</div>
+                        <div class="col s3">${item.size.v}</div>
+                        <div class="col s2 align-right">${item.label}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s2 fieldLabel">Print Process</div>
+                        <div class="col s4">${item.printProcess.v}</div>
+                        <div class="col s1 fieldLabel">Layout</div>
+                        <div class="col s3">${item.layout.v}</div>
+                        <div class="col s2 align-right">Qty ${item.quantity.v}</div>
+                    </div>
+
+
+                    <div class="row" show.bind="graphic.isLayeredDecal.v">
+                        <div class="col s2 fieldLabel">Decal Layers</div>
+                        <div class="col s4">${graphic.layeredDecalType.v}</div>
+                        <div class="col s1 fieldLabel">White Coverage</div>
+                        <div class="col s3">${graphic.layeredDecalCov.v}</div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col s2 fieldLabel">Material</div>
+                        <div class="col s4">${item.material.v}</div>
+                        <div class="col s1 fieldLabel">Facing</div>
+                        <div class="col s3">${item.facing.v}</div>
+                    </div>
+
+                    <div class="row" show.bind="item.material2.v">
+                        <div class="col s2 fieldLabel">Material 2</div>
+                        <div class="col s8">${item.material2.v}</div>
+                    </div>
+
+                    <div class="row" show.bind="item.material3.v">
+                        <div class="col s2 fieldLabel">Material 3</div>
+                        <div class="col s8">${item.material3.v}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s2 fieldLabel">Color Match</div>
+                        <div class="col s8">
+                            ${item.colorMatch.v}
+                            <span show.bind="item.colorMatchComments.v" innerhtml.bind="' - ' + item.colorMatchComments.v"></span>
+                        </div>
+                    </div>
+
+                    <div class="row" show.bind="item.productionNotes.v">
+                        <div class="col s2 fieldLabel">Production Notes</div>
+                        <div class="col s10" innerhtml.bind="item.productionNotes.v"></div>
+                    </div>
+                    <div class="row" show.bind="item.finishings.v">
+                        <div class="col s2 fieldLabel">Finishings</div>
+                        <div class="col s10" innerhtml.bind="item.finishings.v"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s2 fieldLabel">File Location</div>
+                        <div class="col s10">${item.fileLocation.v}</div>
+                    </div>
+
+                    <div class="row" show.bind="item.finishingNotes.v">
+                        <div class="col s2 fieldLabel">Finishing Notes</div>
+                        <div class="col s10" innerhtml.bind="item.finishingNotes.v"></div>
+                    </div>
+
+                    <!--status selection drop down-->
+                    <!--<div class="row">
+                            ${item.status.name}
+                            <div class=" col s2 fieldLabel ">Status Selection </div>
+                            <div class=" col s4 dropdown-item ">
+                                <div class="actions ">
+                                    <a md-button md-dropdown="ref.bind: dropdown2; below-origin: true;" class="btn accent dropdown-button btnname"> ${item.status.name}</a>
+                                </div>
+                                <ul ref="dropdown2 ">
+                                    <li repeat.for="status of statuses ">
+                                        <a click.trigger="item.status=status ">${status.name}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>-->
+
+                    <div class="row" show.bind="item.redoReason">
+                        <div class="col s2 fieldLabel">Redo Reason</div>
+                        <div class="col s10">${item.redoReason}</div>
+                    </div>
+                    <div class="row" show.bind="item.redoComment">
+                        <div class="col s2 fieldLabel">Redo Comments</div>
+                        <div class="col s10" innerhtml.bind="item.redoComment"></div>
+                    </div>
+                    <div class="row" show.bind="item.redoComment">
+                        <div class="col s2 fieldLabel">Redo Comments</div>
+                        <div class="col s10" innerhtml.bind="item.redoComment"></div>
+                    </div>
+
+                    <div class="row s4">
+                        <template repeat.for="version of item.versions">
+                            <div class="col s6">
+                                <prepress-dropzone transaction.bind="transaction" version.bind="version" selected-version.one-way="selectedVersion"></prepress-dropzone>
+                            </div>
+                        </template>
+                    </div>
+
+                </div>
+            </template>
+
+        </div>
+    </section>
+</template>

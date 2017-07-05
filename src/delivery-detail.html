@@ -1,0 +1,224 @@
+<template>
+    <div show.bind="loading" class="center-align">
+        <md-progress md-type="circular" md-size="big" md-color="blue"></md-progress>
+    </div>
+
+    <div class="center-align" show.bind="showStatus">
+        <h4>${statusMessage}</h4>
+        <button click.delegate="activate(saveparams)" class="btn waves-effect waves-light blue">Retry</button>
+    </div>
+
+
+    <section class="au-animate" hide.bind="loading || showStatus">
+        <div class="card-panel" style="padding:8px 12px 2px;background-color: #d5dfe5;">
+
+            <div class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Customer</div>
+                <div class="col s8">${delivery.company}</div>
+            </div>
+
+            <div class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Contact</div>
+                <div class="col s8">
+                    <div>${delivery.location.contact}</div>
+                    <div> ${delivery.location.phone}</div>
+                </div>
+            </div>
+
+            <div if.bind="delivery.description" class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Description</div>
+                <div class="col s8">${delivery.description}</div>
+            </div>
+
+            <div class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Sales Team</div>
+                <div class="col s8">${delivery.salesteam}</div>
+            </div>
+
+            <div class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Location</div>
+                <div class="col s8">
+                    <div if.bind="delivery.location.addr1.indexOf(delivery.location.name)==-1">${delivery.location.name}</div>
+                    <div class="link" click.delegate="navigate(delivery.address)">
+                        <div>${delivery.location.addr1}</div>
+                        <div if.bind="delivery.location.addr2">${delivery.location.addr2}</div>
+                        <div>${delivery.location.city} ${delivery.location.state} ${delivery.location.zip}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Delivery Date</div>
+                <div class="col s8">${delivery.dueDate} ${delivery.dueTime}</div>
+            </div>
+
+            <div if.bind="delivery.itemLocation" class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Item Location</div>
+                <div class="col s12 m8" innerhtml.bind="delivery.itemLocation | addLineBreaks"></div>
+            </div>
+
+            <div if.bind="delivery.instructions" class="row" style="margin-bottom:6px;">
+                <div class="col s4 fieldLabel">Instructions</div>
+                <div class="col s12 m8" innerhtml.bind="delivery.instructions | addLineBreaks"></div>
+            </div>
+
+        </div>
+
+        <template if.bind="delivery.itemGroups.length">
+            <div class="row" style=" margin: 0px !important;">
+                <div>
+                    <div class="col s8"><b>Description</div>
+                <div class="col s3">Qty</b></div>
+                </div>
+            </div>
+
+            <div repeat.for="itemGroup of delivery.itemGroups" class="card-panel" style="padding:8px 12px 2px;background-color: #d5dfe5;">
+                <div repeat.for="item of itemGroup.items" style="padding-bottom:4px;">
+                    <div show.bind="$first" class="row slim-row">
+
+                        <div class="col s12"><b>${item.description}</b></div>
+
+                    </div>
+                    <div class="row slim-row pointer" click.delegate="expandDetails(item)">
+                        <div class="col s8">${item.item}</div>
+                        <div class="col s3">${item.currentQuantityDelivered} of ${item.quantity}</div>
+                        <div class="col s1" style="margin-left:-10px;height:21px;"><i class="material-icons">${item.showpullDown ? 'expand_less' : 'expand_more'}</i></div>
+                    </div>
+
+                    <div class="detailspulldown card-panel" if.bind="item.showpullDown">
+                        <!--<div class="row slim-row">
+                        <div class="col s5 fieldLabel">Description</div>
+                        <div class="col s7">${item.description}</div>
+                        </div>-->
+
+                        <!--<div class="row slim-row" style="padding-bottom:4px;">
+                            <div class="col s5 m3 fieldLabel">Item</div>
+                            <div class="col s7 m9">${item.item}</div>
+                        </div>-->
+
+                        <div class="row slim-row" style="padding-bottom:12px;">
+                            <div class="col s5 m3 fieldLabel">Sales Order</div>
+                            <div class="col s7">${item.tranid}</div>
+                        </div>
+
+                        <div class="row slim-row" style="padding-bottom:4px;">
+                            <div class="col s7 m5 l3 fieldLabel">Quantity Ordered</div>
+                            <div class="col s3 m2 l2 center-align">${item.quantity}</div>
+                        </div>
+
+                        <div class="row slim-row">
+                            <div class="col s7 m5 l3 fieldLabel">Quantity Remaining</div>
+                            <div class="col s3 m2 l2 center-align">${item.quantity - item.quantityDelivered}</div>
+                        </div>
+
+                        <div class="row slim-row">
+                            <div class="col s7 m5 l3 fieldLabel" style="margin-top: 8px;">Quantity Delivered</div>
+                            <div class="col s3 m2 l2">
+                                <md-input md-value.bind="item.currentQuantityDelivered_temp & integerInput" class="md-no-margin md-input-center ${item.quantityErrorMessage ? 'invalid' : ''}"></md-input>
+                            </div>
+                            <div class="col s12 m2" style="color:red; font-weight: bold; text-align:right;">${item.quantityErrorMessage}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <div class="center-align" style="margin-top:20px;">
+            <button ref="signbutton" click.delegate="signFormOpen()" class="center-align btn waves-effect waves-light blue">Signature Confirmation</button>
+        </div>
+
+    </section>
+
+    <!--signature modal with confirm and cancel buttons-->
+    <div md-modal="dismissible: false;" md-modal.ref="signFormModal" class="signaturemodal" style="max-height: 100%; height: 100%; width: 100%;">
+        <div class="modal-content" style="width:100vw; height:100vh;">
+            <md-collection class="slim">
+                <md-collection-item>
+                    <div id="signature" style="width: 100%; height: 120px;"></div>
+                    <div class="center-align">
+
+                        <div class="col s12 m6" style="margin-top:30px">
+                            <md-input md-label="Recieved by" md-value.bind="delivery.recipient"></md-input>
+                        </div>
+
+                        <div class="col s12 m6" style="margin-top:30px">
+                            <md-input md-label="Confirmation E-mail (optional)" md-value.bind="delivery.confirmEmail"></md-input><br />
+                        </div>
+
+                        <button ref="signbutton" click.delegate="updateDelivery('sign')" class="btn waves-effect waves-light blue">Confirm</button>                        <button ref="signbutton " style="margin-left:10%; " click.delegate="updateDelivery('close')" class=" btn waves-effect waves-light blue ">Cancel</button>
+                    </div>
+                </md-collection-item>
+            </md-collection>
+        </div>
+    </div>
+
+    <!--
+    -items detail modal-
+    <div md-modal md-modal.ref="itemDetailsModal">
+        <div class="modal-content">
+            <md-collection class="slim">
+                <md-collection-item>
+                    <div class="row slim-row">
+                        <div class="col s5">Sales Order</div>
+                        <div class="col s7">${itemDetail.tranid}</div>
+                    </div>
+
+                    <div class="row slim-row">
+                        <div class="col s5">Description</div>
+                        <div class="col s7">${itemDetail.description}</div>
+                    </div>
+
+                    <div class="row slim-row">
+                        <div class="col s5">Item</div>
+                        <div class="col s7">${itemDetail.item}</div>
+                    </div>
+
+                    <div class="row slim-row" style="padding-top:12px;">
+                        <div class="col s7">Quantity Ordered</div>
+                        <div class="col s5">${itemDetail.quantity}</div>
+                    </div>
+
+                    <div class="row slim-row">
+                        <div class="col s7">Quantity Remaining</div>
+                        <div class="col s5">${itemDetail.quantity - itemDetail.quantityDelivered}</div>
+                    </div>
+
+                    <div class="row slim-row">
+                        <div class="col s7" style="margin-top: 8px;">Quantity Delivered</div>
+                        <div class="col s5">
+                            <md-input md-value.bind="quantityDelivered & integerInput" class="md-no-margin"></md-input>
+                        </div>
+                    </div>
+
+                    <div style="color:red;" ref="itemDetailsStatusMessage"></div>
+
+                </md-collection-item>
+            </md-collection>
+        </div>
+
+
+    </div>
+-->
+
+
+    <!-- Error modals-->
+
+    <div md-modal="dismissible: false;" md-modal.ref="messageModal">
+        <div class="modal-content">
+            <div class="col s12 center-align" style="padding-bottom:30px">${modalStatusMessage}</div>
+            <div class="col s12 center-align" style="padding-bottom:30px">
+                <button click.delegate=" messageModal.close()" class="btn waves-effect waves-light blue">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div md-modal="dismissible: false;" md-modal.ref="confirmationModal">
+        <div class="modal-content">
+            <div class="col s12 center-align" style="padding-bottom:30px">Delivery Update Successful</div>
+            <div class="col s12 center-align" style="padding-bottom:30px">
+                <button click.delegate="redirectToMainlist()" class="btn waves-effect waves-light blue">Done</button>
+            </div>
+        </div>
+    </div>
+
+</template>

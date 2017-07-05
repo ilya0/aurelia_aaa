@@ -1,0 +1,168 @@
+<template>
+    <section class="au-animate slim-rows5" style="margin:0;">
+        <div class="row">
+            <div class="col s12" style="position:relative;">
+                <span class="input-field">
+					<input ref="textInputElem" type="text" value.bind="textInput">
+	            </span>
+                <md-progress style="position:absolute;right:18px;top:4px;" show.bind="loading" md-pixel-size="25" md-type="circular"></md-progress>
+            </div>
+            <!--<div class="col s12">
+				<button click.delegate="toggleSize()">Toggle Size</button> (${mdSize})
+				<input value.bind="mdPixelSize" class="number">
+			</div>-->
+        </div>
+        <div show.bind="transaction" style="padding-top:8px;font-weight:bold;">
+            <div class="row">
+                <div class="col s3 offset-s1">Transaction</div>
+                <div class="col s1">${transaction.record.tranid}</div>
+            </div>
+            <div class="row">
+                <div class="col s3 offset-s1">Customer</div>
+                <div class="col s8">${transaction.record.customer}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <md-collection repeat.for="pkg of packages">
+                    <md-collection-header class.bind="(pkg == currentPackage) ? 'selected-collection' : ''" click.delegate="selectPackage($index)">
+                        <h5>Box ${$index + 1}</h5>
+                    </md-collection-header>
+                    <div>
+                        <md-collection-item repeat.for="item of pkg.items" ref="item.element">
+                            <div class="row">
+                                <div class="col s4"><b>Line ${item.line.lineId.v}</b></div>
+                                <div class="col s8"><b>${item.line.label}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">Description</div>
+                                <div class="col s8">${item.line.name.v}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">Item</div>
+                                <div class="col s8">${item.line.item.v}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col s8">Quantity Ordered</div>
+                                <div class="col s4">${item.line.quantity.v}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col s8">Quantity Remaining</div>
+                                <div class="col s4">${item.line.quantity.v - item.line.quantityfulfilled - item.line.packed}</div>
+                            </div>
+                            <div hide.bind="item.versionsPacked.length" class="row pointer" click.delegate="setItemQuantity(pkg, item)">
+                                <div class="col s8" style="font-weight:bold;">Quantity In Box</div>
+                                <div class="col s4" style="font-size:18px;font-weight:bold;">${item.packed}
+                                    <!--<input type="text" class="number" value.bind="item.quantity">-->
+                                </div>
+                            </div>
+                            <div show.bind="item.versionsPacked.length" class="row pointer" click.delegate="selectGraphicVersion(item, false, pkg)">
+                                <div class="col s8" style="font-weight:bold;">Quantity In Box</div>
+                                <div class="col s4" style="font-size:18px;font-weight:bold;">${item.packed}
+                                    <!--<input type="text" class="number" value.bind="item.quantity">-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <template repeat.for="ver of item.versionsPacked">
+                                    <div class="col s12">
+                                        <div style="padding:5px 10px 2px;background-color: #bacbd6;margin-bottom:5px;">
+                                            <div class="row slim-row">
+                                                <div class="col s7">
+                                                    <div class="row slim-row">
+                                                        <div class="col s7">Quantity</div>
+                                                        <div class="col s5">${ver.version.quantity.v}</div>
+                                                    </div>
+                                                    <div class="row slim-row pointer" click.delegate="setVersionQuantity(pkg, item, ver)">
+                                                        <div class="col s7"><b>In Box</b></div>
+                                                        <div class="col s5" style="font-size:16px;font-weight:bold;">${ver.packed}</div>
+                                                    </div>
+                                                    <div class="row slim-row">
+                                                        <div class="col s12">Filename</div>
+                                                    </div>
+                                                    <div class="row slim-row">
+                                                        <div class="col s12"><b>${ver.version.filename.v}</b></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col s5 center-align">
+                                                    <img if.bind="ver.version.labelImage" src="${appState.labelImagesRootUrl + ver.version.labelImage}" style="max-width:85px;max-height:85px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </md-collection-item>
+                    </div>
+                </md-collection>
+            </div>
+        </div>
+        <div class="row" show.bind="statusMessage">
+            <div class="col s12 center-align" style="margin-bottom:18px;">
+                <h4 style="line-height:1.4em;color:red;font-weight:bold;">${statusMessage}</h4>
+            </div>
+        </div>
+        <div class="row" hide.bind="packages.length">
+            <div class="col s12 center-align" style="margin-bottom:18px;">
+                <h5 style="line-height:1.4em;">Scan first item<br>to begin fulfillment</h5>
+            </div>
+        </div>
+        <div class="row" show.bind="submitting">
+            <div class="col s12 center-align" style="margin-bottom:10px;">
+                <md-progress></md-progress>
+            </div>
+        </div>
+        <div class="row" show.bind="packages.length">
+            <div class="col s12 m6 center-align" style="margin-bottom:18px;">
+                <button ref="newBoxBtn" click.delegate="addPackage()" class="btn-large waves-effect waves-light blue">New Box</button>
+            </div>
+            <div class="col s12 m6 center-align" style="margin-bottom:18px;">
+                <button ref="submitBtn" click.delegate="submitFulfillment()" class="btn-large waves-effect waves-light blue">Submit Fulfillment</button>
+            </div>
+        </div>
+        <div class="row" show.bind="transaction">
+            <div class="col s12 m6 center-align" style="margin-bottom:18px;">
+                <button ref="remainingBtn" click.delegate="getRemainingItems()" class="btn waves-effect waves-light blue">Remaining Items</button>
+            </div>
+            <div class="col s12 m6 center-align" style="margin-bottom:18px;">
+                <button ref="resetBtn" click.delegate="resetForm()" class="btn waves-effect waves-light blue">Reset Form</button>
+            </div>
+        </div>
+    </section>
+    <div md-modal md-modal.ref="remainingItemsModal">
+        <div class="modal-content">
+            <md-collection class="slim">
+                <md-collection-item repeat.for="item of remainingItems" ref="item.element">
+                    <div class="row slim-row">
+                        <div class="col s4"><b>Line ${item.line.lineId.v}</b></div>
+                        <div class="col s8"><b>${item.line.label}</b></div>
+                    </div>
+                    <div class="row slim-row">
+                        <div class="col s4">Description</div>
+                        <div class="col s8">${item.line.name.v}</div>
+                    </div>
+                    <div class="row slim-row">
+                        <div class="col s4">Item</div>
+                        <div class="col s8">${item.line.item.v}</div>
+                    </div>
+                    <div class="row slim-row">
+                        <div class="col s8">Quantity Ordered</div>
+                        <div class="col s4">${item.line.quantity.v}</div>
+                    </div>
+                    <div class="row slim-row">
+                        <div class="col s8">Quantity Remaining</div>
+                        <div class="col s4">${item.remaining}</div>
+                    </div>
+                    <div class="row slim-row">
+                        <div class="col s12 center-align">
+                            <a click.delegate="addFromRemainingItemsModal(item)" md-button md-waves="color: accent;">Add to Fulfillment</a>
+                        </div>
+                    </div>
+                </md-collection-item>
+            </md-collection>
+        </div>
+        <div class="modal-footer">
+            <!--<a click.delegate="agree()" md-button="flat: true;" md-waves="color: accent;" class="modal-action modal-close">Agree</a>
+			<a click.delegate="disagree()" md-button="flat: true;" md-waves="color: accent;" class="modal-action modal-close">Disagree</a>-->
+        </div>
+    </div>
+</template>
